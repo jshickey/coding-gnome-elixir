@@ -47,4 +47,19 @@ defmodule DictionaryTest do
              ins: "acle"
            ]
   end
+
+  # from Our First Project / Make It More Functional Review Questions
+  test "compose with pipelines vs inside out" do
+    word = "bat"
+    assert word |> String.codepoints() |> Enum.sort() |> Enum.join() == "abt"
+    assert Enum.join(Enum.sort(String.codepoints(word))) == "abt"
+
+    # convert inside out to pipelines: length(split(wordlist, /\n/))
+    words =  "had we but world enough and time"
+    assert words |> String.split() |> length() == 7
+
+    # convert tab separated string into comma separated string, join(split(string, "\t"), ",")
+    words =  "had\twe\tbut\tworld\tenough\tand\ttime"
+    assert words |> String.split("\t") |> Enum.join(",") == "had,we,but,world,enough,and,time"
+  end
 end
